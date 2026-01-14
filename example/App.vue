@@ -405,8 +405,6 @@ body {
 /* Hero Section */
 .hero {
   text-align: center;
-  padding: 0 0 4rem;
-  border-bottom: 1px solid #e5e5e5;
   margin-bottom: 2.5rem;
 }
 
