@@ -30,6 +30,11 @@ function resume() {
 }
 
 watchEffect(() => {
+  if (timer.value) {
+    clearTimeout(timer.value)
+    timer.value = null
+  }
+  
   if (props.autoClose) {
     startedAt.value = Date.now()
     remainingTime.value = props.duration

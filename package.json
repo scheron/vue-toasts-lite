@@ -26,6 +26,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:example": "cd example && bun run build",
     "preview": "vite preview"
   },
   "peerDependencies": {

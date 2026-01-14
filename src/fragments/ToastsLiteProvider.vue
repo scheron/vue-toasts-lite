@@ -10,6 +10,12 @@ type ToastInstance = ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, fal
 }
 type ToastRefMap = Record<ToastPosition, ToastInstance[]>
 
+const allPositions: ToastPosition[] = [
+  "top-left", "top-center", "top-right",
+  "middle-center",
+  "bottom-left", "bottom-center", "bottom-right"
+]
+
 const items = ref(toastsController.toastList)
 
 toastsController.onToastsListChange((toasts) => {
@@ -30,12 +36,10 @@ const groupedByPosition = computed(() => {
   return groups
 })
 
-const positions = computed(() => Array.from(groupedByPosition.value.keys()))
-
 const toastRefsMap = ref<ToastRefMap>({} as ToastRefMap)
 
 onBeforeUpdate(() => {
-  for (const pos of positions.value) {
+  for (const pos of allPositions) {
     toastRefsMap.value[pos] = []
   }
 })
@@ -66,15 +70,15 @@ function addToastRef(position: ToastPosition, el: ComponentPublicInstance | Elem
 <template>
   <Teleport to="body">
     <div 
-      v-for="position in positions" 
+      v-for="position in allPositions" 
       :key="position" 
       :class="['toasts-lite__toast-container', `toasts-lite__${position}`]" 
       @mouseenter="onMouseEnter(position)" 
       @mouseleave="onMouseLeave(position)"
     >
-      <transition-group name="toasts-lite">
+      <transition-group name="toasts-lite" appear>
         <ToastsLiteItem
-          v-for="item in groupedByPosition.get(position)"
+          v-for="item in groupedByPosition.get(position) || []"
           :id="item.id"
           :ref="(el) => addToastRef(position, el)"
           :key="item.id"
