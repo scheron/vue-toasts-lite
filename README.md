@@ -129,14 +129,6 @@ await toasts.promise(
 )
 ```
 
-### Custom Controller
-
-```js
-import { ToastsController } from 'vue-toasts-lite'
-
-const notifications = new ToastsController()
-notifications.success('Hello!')
-```
 
 ## Styling
 
