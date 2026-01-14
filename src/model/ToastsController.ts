@@ -1,6 +1,5 @@
-import {reactive} from "vue"
-
 import type {Id, Toast, ToastOptions, ToastPromiseOptions, ToastProps, ToastSimpleOptions} from "./types"
+import {ObservableMap} from "./ObservableMap"
 
 const DEFAULT_OPTIONS = {
   type: "success",
@@ -10,22 +9,33 @@ const DEFAULT_OPTIONS = {
   position: "top-center",
 }
 
-class ToastsController implements Toast {
-  toasts: Map<Id, ToastProps>
+export class ToastsController implements Toast {
   private counter = 0
-  private ID() {
-    return `toast:${Date.now().toString(16)}-${this.counter++}`
-  }
+  private toasts: ObservableMap<Id, ToastProps>
 
   constructor() {
-    this.toasts = reactive(new Map())
+    this.toasts = new ObservableMap()
+  }
+
+  get toastList() {
+    return Array.from(this.toasts.values())
+  }
+
+  onToastsListChange(callback: (toasts: ToastProps[]) => void) {
+    return this.toasts.subscribe(callback)
+  }
+
+  private ID() {
+    return `toast:${Date.now().toString(16)}-${this.counter++}`
   }
 
   private addOrUpdate(_options: ToastOptions): Id {
     let {id = this.ID(), ...options} = _options
 
     if (this.toasts.has(id)) {
-      Object.assign(this.toasts.get(id)!, options)
+      const toast = this.toasts.get(id)!
+      Object.assign(toast, options)
+      this.toasts.set(id, toast)
       return id
     }
 

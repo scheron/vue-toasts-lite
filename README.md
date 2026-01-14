@@ -6,30 +6,32 @@ A lightweight toast notifications library for Vue 3.
 
 - 🚀 Lightweight and easy to use
 - 🎨 Multiple toast types (success, error, loading, warn)
-- ⚡️ Customizable duration and auto-close behavior
+- 📍 Multiple positions (can show in different corners simultaneously)
+- ⚡️ Customizable duration, auto-close, and styling
 - 🎯 TypeScript support
-- 🎭 Simple and clean API
-- 📍 Multiple position options
-- 🎨 Customizable styling with CSS variables
 - 🎯 Promise support
 - 🖱️ Pause on hover
-- 🎨 Custom toast components via slots
 
 ## Installation
 
 ```bash
-npm install @infectedbyjs/vue-lite-toasts
-# or
-yarn add @infectedbyjs/vue-lite-toasts
+npm install vue-toasts-lite
 ```
 
 ## Quick Start
 
-1. Add the `ToastsLiteProvider` to your `App.vue`:
+**Three steps to start using toasts:**
+
+1. Install the package
+2. Add `ToastsLiteProvider` to your app
+3. Call `toasts.success()` from anywhere
+
+### 1. Add the provider to your `App.vue`:
 
 ```vue
 <script setup>
-import { ToastsLiteProvider } from '@infectedbyjs/vue-lite-toasts'
+import { ToastsLiteProvider } from 'vue-toasts-lite'
+import 'vue-toasts-lite/style.css'
 </script>
 
 <template>
@@ -40,163 +42,115 @@ import { ToastsLiteProvider } from '@infectedbyjs/vue-lite-toasts'
 </template>
 ```
 
-2. Use the toast function anywhere in your application:
+### 2. Use anywhere in your app:
 
 ```vue
 <script setup>
-import { toast } from '@infectedbyjs/vue-lite-toasts'
+import { toasts } from 'vue-toasts-lite'
 
-// Show a success toast
-toast.success('Hello')
-
-// Show an error toast
-toast.error('Something went wrong')
-
-// Show a loading toast
-toast.loading('Loading...')
-
-// Show a warning toast
-toast.warn('Warning message')
+toasts.success('Hello!')
+toasts.error('Something went wrong')
+toasts.loading('Loading...')
+toasts.warn('Warning message')
 </script>
 ```
 
-## Toast Options
+## API
+
+```js
+// Basic methods
+toasts.success(message, options?)
+toasts.error(message, options?)
+toasts.loading(message, options?)
+toasts.warn(message, options?)
+
+// Advanced methods
+toasts.add(options)              // Create custom toast
+toasts.update(id, options)       // Update existing toast
+toasts.remove(id?)               // Remove toast(s)
+toasts.clear()                   // Clear all toasts
+toasts.promise(promise, options) // Handle promise states
+```
+
+## Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| type | 'success' \| 'error' \| 'loading' \| 'warn' | - | Type of the toast |
-| message | string | - | Message to display |
-| duration | number | 3000 | Duration in milliseconds |
-| autoClose | boolean | true | Whether to auto-close the toast |
-| position | ToastPosition | 'top-center' | Position of the toast |
-| id | string | auto-generated | Custom ID for the toast (can be used to remove it later) |
+| `message` | `string` | - | Message to display |
+| `type` | `'success' \| 'error' \| 'loading' \| 'warn'` | `'success'` | Toast type |
+| `duration` | `number` | `3000` | Duration in milliseconds |
+| `autoClose` | `boolean` | `true` | Auto-close behavior |
+| `position` | `ToastPosition` | `'top-center'` | Toast position |
+| `id` | `string` | auto | Custom ID |
 
-## Available Positions
+### Available Positions
 
-The toast can be positioned in the following locations:
-
-- `top-left`
-- `top-center` (default)
-- `top-right`
-- `bottom-left`
-- `bottom-center`
-- `bottom-right`
-- `middle-center`
-
-## Customization
-
-### CSS Variables
-
-You can customize the appearance using CSS variables:
-
-```css
-:root {
-  --tl-font-family: your-font-family;
-  --tl-bg: your-background-color;
-  --tl-text: your-text-color;
-  --tl-border: your-border-color;
-  --tl-shadow: your-shadow-color;
-  --tl-success: your-success-color;
-  --tl-error: your-error-color;
-  --tl-warn: your-warning-color;
-  --tl-icon-color: your-icon-color;
-  --tl-loading-border: your-loading-border-color;
-  --tl-loading-bg: your-loading-background-color;
-}
-```
-
-### Custom Toast Components
-
-You can provide custom components for different toast types using slots:
-
-```vue
-<ToastsLiteProvider>
-  <template #success="{ toast }">
-    <YourCustomSuccessToast :toast="toast" />
-  </template>
-  <template #error="{ toast }">
-    <YourCustomErrorToast :toast="toast" />
-  </template>
-  <!-- Add other type slots as needed -->
-</ToastsLiteProvider>
-```
+`top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`, `middle-center`
 
 ## Examples
 
 ### Basic Usage
 
 ```js
-// Success toast
-toast.success('Operation completed successfully')
+// With options
+toasts.success('Success!', { duration: 5000, position: 'bottom-right' })
 
-// Error toast
-toast.error('An error occurred')
-
-// Loading toast
-toast.loading('Please wait...')
-
-// Warning toast
-toast.warn('Please be careful')
+// Multiple positions at once
+toasts.success('Top', { position: 'top-center' })
+toasts.error('Bottom', { position: 'bottom-right' })
 ```
 
-### Toast with Unsubscribe Function
+### Update Toasts
 
 ```js
-// Create a toast and get unsubscribe function
-const removeToast = toast.success('This toast can be removed')
-
-// Remove the toast using the returned function
-removeToast()
-```
-
-### Custom Duration
-
-```js
-// Toast that stays for 5 seconds
-toast.success('Custom duration', { duration: 5000 })
-```
-
-### Custom Position
-
-```js
-// Toast in bottom-right corner
-toast.success('Custom position', { position: 'bottom-right' })
-```
-
-### Disable Auto-Close
-
-```js
-// Toast that won't auto-close
-toast.success('Manual close only', { autoClose: false })
-```
-
-### Toast with Custom ID
-
-```js
-// Create a toast with custom ID
-const toastId = toast.success('This toast can be removed by ID', { id: 'my-custom-toast' })
-
-// Remove the toast by ID
-toast.remove(toastId)
+const id = toasts.loading('Uploading...')
+// Later
+toasts.update(id, { type: 'success', message: 'Done!' })
 ```
 
 ### Promise Support
 
 ```js
-// Handle async operations
-await toast.promise(
+await toasts.promise(
   fetchData(),
   {
-    loading: 'Loading data...',
-    success: 'Data loaded successfully!',
-    error: 'Failed to load data'
+    loading: 'Loading...',
+    success: 'Loaded!',
+    error: 'Failed!'
   }
 )
 ```
 
-## Live Example
+### Custom Controller
 
-Check out the [example](./example) directory for a complete usage example.
+```js
+import { ToastsController } from 'vue-toasts-lite'
+
+const notifications = new ToastsController()
+notifications.success('Hello!')
+```
+
+## Styling
+
+Customize colors and appearance with CSS variables:
+
+### CSS Variables
+
+```css
+:root {
+  --tl-font-family: system-ui, -apple-system, sans-serif;
+  --tl-bg: hsl(0, 0%, 100%);
+  --tl-text: hsl(0, 0%, 20%);
+  --tl-border: hsl(0, 0%, 85%);
+  --tl-shadow: hsla(0, 0%, 0%, 0.1);
+  --tl-success: hsl(145, 63%, 42%);
+  --tl-error: hsl(0, 79%, 63%);
+  --tl-warn: hsl(45, 100%, 51%);
+  --tl-icon-color: hsl(0, 0%, 100%);
+  --tl-loading-border: hsl(0, 0%, 15%);
+  --tl-loading-bg: hsl(0, 0%, 98%);
+}
+```
 
 ## License
 

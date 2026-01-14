@@ -27,5 +27,9 @@ export interface Toast {
   success: (message: string, options?: ToastSimpleOptions) => Id
   loading: (message: string, options?: ToastSimpleOptions) => Id
   error: (message: string, options?: ToastSimpleOptions) => Id
+  warn: (message: string, options?: ToastSimpleOptions) => Id
   promise: <T>(promise: Promise<T>, options: ToastPromiseOptions) => Promise<Id>
+  remove: (id?: Id) => void
+  clear: () => void
+  onToastsListChange: (callback: (toasts: ToastProps[]) => void) => () => void
 }
