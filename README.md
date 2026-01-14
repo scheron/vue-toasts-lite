@@ -5,7 +5,10 @@
 
 A lightweight toast notifications library for Vue 3.
 
-📖 **[Full Documentation](https://scheron.github.io/vue-toasts-lite/)**
+📖 **[Check docs](https://scheron.github.io/vue-toasts-lite/)**
+
+> ⚠️ **Note**: This is primarily a personal utility library created for my own use. I don't discourage others from using it, but I should mention that I'm not currently using it in production myself. The main purpose of this library is to provide me with a simple and quick way to integrate toast notifications into my personal projects without the need to configure and set up larger, more complex libraries. If you find it useful, feel free to use it, but keep in mind that it's tailored to my personal needs and workflow.
+
 
 ## Features
 
