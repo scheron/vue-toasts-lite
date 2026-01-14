@@ -1,6 +1,11 @@
 # Vue Toasts Lite
 
+[![npm version](https://badge.fury.io/js/vue-toasts-lite.svg)](https://www.npmjs.com/package/vue-toasts-lite)
+[![Documentation](https://img.shields.io/badge/docs-available-brightgreen)](https://scheron.github.io/vue-toasts-lite/)
+
 A lightweight toast notifications library for Vue 3.
+
+📖 **[Full Documentation](https://scheron.github.io/vue-toasts-lite/)**
 
 ## Features
 
