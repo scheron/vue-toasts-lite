@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "type": "module",
   "types": "./dist/index.d.ts",
+  "author": "scheron",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scheron/vue-toasts-lite"
+  },
+  "license": "MIT",
+  "description": "Lightweight toast notifications for Vue 3",
+  "keywords": [ "vue", "toast", "notification", "vue3" ],
   "files": [
     "dist"
   ],
@@ -30,14 +38,5 @@
     "vite": "^5.0.0",
     "vite-plugin-dts": "^4.5.4",
     "vue": "^3.0.0"
-  },
-  "keywords": [
-    "vue",
-    "toast",
-    "notification",
-    "vue3"
-  ],
-  "author": "scheron",
-  "license": "MIT",
-  "description": "Lightweight toast notifications for Vue 3"
+  }
 }
