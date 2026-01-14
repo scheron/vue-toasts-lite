@@ -1,20 +1,23 @@
 {
   "name": "vue-toasts-lite-example",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.0"
+    "vue": "^3.3.0",
+    "vue-toasts-lite": "^0.1.0"
   },
   "devDependencies": {
+    "@types/node": "^25.0.8",
     "@vitejs/plugin-vue": "^5.0.0",
-    "typescript": "^5.0.0",
+    "typescript": "^5.8.3",
     "vite": "^5.0.0",
-    "vue-tsc": "^1.8.0"
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.0.0"
   }
 } 

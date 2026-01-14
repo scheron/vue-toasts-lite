@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [vue()],
-  resolve: {
-    alias: {
-      '@infectedbyjs/vue-toasts-lite': resolve(__dirname, '../src/index.ts')
-    }
-  }
-}) 
+  base: command === 'build' ? '/vue-toasts-lite/' : '/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+    minify: 'esbuild',
+    sourcemap: false,
+  },
+})) 
