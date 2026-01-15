@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {onMounted, onUnmounted, ref, watch} from "vue"
 
-import type {ToastProps} from "../model/types"
+import type {Toast} from "../model/types"
 
-const props = defineProps<ToastProps>()
+const props = defineProps<Toast>()
 const emit = defineEmits(["close"])
 
 const timer = ref<ReturnType<typeof setTimeout> | null>(null)

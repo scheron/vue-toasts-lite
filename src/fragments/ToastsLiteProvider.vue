@@ -5,11 +5,11 @@ import {toastsController} from "../model/ToastsController"
 import {useToastRefs} from "../model/useToastRefs"
 import ToastsLiteItem from "./ToastsLiteItem.vue"
 
-import type {ToastPosition} from "../model/types"
+import type {ToastPosition, Toast} from "../model/types"
 
 const allPositions: ToastPosition[] = ["top-left", "top-center", "top-right", "middle-center", "bottom-left", "bottom-center", "bottom-right"]
 
-const items = ref(toastsController.toastList)
+const items = ref<Toast[]>([])
 
 const {setRef, pauseAll, resumeAll} = useToastRefs()
 
