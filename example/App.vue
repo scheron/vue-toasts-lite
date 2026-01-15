@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, nextTick } from 'vue'
+import { onMounted, nextTick, ref, onUnmounted } from 'vue'
 import type { ToastPosition, ToastType } from 'vue-toasts-lite'
 import { toasts, ToastsLiteProvider } from 'vue-toasts-lite'
 import 'vue-toasts-lite/style.css'
@@ -96,42 +96,153 @@ const showCustomDuration = () => {
   toasts.success('Success!', { duration: 5000, position: 'bottom-right' })
 }
 
-let customToastId: string | null = null
+const showAutoClose = () => {
+  toasts.success('Auto Close', { autoClose: false })
+}
 
-const showCustomId = () => {
-  if (customToastId) {
-    toasts.remove(customToastId)
-  }
-  customToastId = toasts.add({
-    message: 'Custom toast',
-    type: 'success',
-    id: 'my-custom-id',
-    autoClose: false
+// Managing toasts by ID
+const toastIds = {
+  explicit: 'my-custom-id',
+  returned: [] as string[]
+}
+
+const createMultipleToasts = () => {
+  toasts.add({
+    message: 'Toast #1 (Explicit ID)',
+    type: 'warn',
+    id: toastIds.explicit,
+    autoClose: false,
+    position: 'top-left'
+  })
+  
+  const returnedId = toasts.add({
+    message: 'Toast #2 (Returned ID)',
+    type: 'warn',
+    autoClose: false,
+    position: 'top-right'
+  })
+  toastIds.returned.push(returnedId)
+}
+
+const updateExplicitId = () => {
+  toasts.update(toastIds.explicit, { 
+    type: 'success', 
+    message: 'Toast #1 Updated!',
+    position: 'top-left'
   })
 }
 
-const updateCustomToast = () => {
-  if (customToastId) {
-    toasts.update(customToastId, { type: 'success', message: 'Done!' })
+const updateReturnedId = () => {
+  if (toastIds.returned) {
+    toastIds.returned.forEach(id => {
+      toasts.update(id, { 
+      type: 'success', 
+      message: 'Toast #2 Updated!',
+      position: 'top-right'
+    })
+    })
   }
 }
 
-const removeCustomId = () => {
-  if (customToastId) {
-    toasts.remove(customToastId)
-    customToastId = null
+const removeExplicitId = () => {
+  toasts.remove(toastIds.explicit)
+}
+
+const removeReturnedId = () => {
+  if (toastIds.returned) {
+    toastIds.returned.forEach(id => {
+      toasts.remove(id)
+    })
+    toastIds.returned = []
   }
 }
 
 const clearAll = () => {
   toasts.clear()
 }
+
+// Active section tracking
+const activeSection = ref('quick-start')
+
+const sections = [
+  'quick-start',
+  'api',
+  'options',
+  'examples',
+  'basic-usage',
+  'with-options',
+  'position',
+  'update-toasts',
+  'promise-support',
+  'managing-toasts',
+  'styling'
+]
+
+const updateActiveSection = () => {
+  const scrollPosition = window.scrollY + 200 // Offset for better detection
+  const windowHeight = window.innerHeight
+  const documentHeight = document.documentElement.scrollHeight
+  
+  // If we're near the bottom of the page, activate the last section
+  if (window.scrollY + windowHeight >= documentHeight - 100) {
+    activeSection.value = sections[sections.length - 1]
+    return
+  }
+
+  for (let i = sections.length - 1; i >= 0; i--) {
+    const section = document.getElementById(sections[i])
+    if (section) {
+      const sectionTop = section.offsetTop
+      const sectionBottom = sectionTop + section.offsetHeight
+      
+      // Check if scroll position is within this section
+      if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+        activeSection.value = sections[i]
+        break
+      }
+      // Also check if we've passed this section
+      if (scrollPosition >= sectionTop) {
+        activeSection.value = sections[i]
+        break
+      }
+    }
+  }
+}
+
+onMounted(() => {
+  highlightCode()
+  window.addEventListener('scroll', updateActiveSection)
+  updateActiveSection() // Initial check
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', updateActiveSection)
+})
 </script>
 
 <template>
-  <div class="docs-container">
-    <!-- Hero Section -->
-    <header class="hero">
+  <div class="docs-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="#quick-start" :class="['nav-item', { 'nav-active': activeSection === 'quick-start' }]">Quick Start</a>
+        <a href="#api" :class="['nav-item', { 'nav-active': activeSection === 'api' }]">API</a>
+        <a href="#options" :class="['nav-item', { 'nav-active': activeSection === 'options' }]">Options</a>
+        <a href="#examples" :class="['nav-item', { 'nav-active': activeSection === 'examples' }]">Examples</a>
+        <a href="#basic-usage" :class="['nav-item', 'nav-subitem', { 'nav-active': activeSection === 'basic-usage' }]">Basic Usage</a>
+        <a href="#with-options" :class="['nav-item', 'nav-subitem', { 'nav-active': activeSection === 'with-options' }]">With Options</a>
+        <a href="#position" :class="['nav-item', 'nav-subitem', { 'nav-active': activeSection === 'position' }]">Position</a>
+        <a href="#update-toasts" :class="['nav-item', 'nav-subitem', { 'nav-active': activeSection === 'update-toasts' }]">Update Toasts</a>
+        <a href="#promise-support" :class="['nav-item', 'nav-subitem', { 'nav-active': activeSection === 'promise-support' }]">Promise Support</a>
+        <a href="#managing-toasts" :class="['nav-item', 'nav-subitem', { 'nav-active': activeSection === 'managing-toasts' }]">Managing Toasts by ID</a>
+        <a href="#styling" :class="['nav-item', { 'nav-active': activeSection === 'styling' }]">Styling</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="docs-container">
+      <!-- Hero Section -->
+      <header class="hero">
       <h1 class="title">Vue Toasts Lite</h1>
       <p class="subtitle">A lightweight toast notifications library for Vue 3</p>
       <div class="badges">
@@ -142,7 +253,7 @@ const clearAll = () => {
     </header>
 
     <!-- Quick Start -->
-    <section class="section">
+    <section id="quick-start" class="section">
       <h2>Quick Start</h2>
         <h3>1. Install the package</h3>
       <pre class="code-block"><code class="language-bash">npm install vue-toasts-lite</code></pre>
@@ -168,17 +279,10 @@ toasts.error('Something went wrong')
 toasts.loading('Loading...')
 toasts.warn('Warning message')
 &lt;/script&gt;</code></pre>
-
-      <div class="demo-buttons">
-        <button class="btn btn-success" @click="showToast('success')">Try Success</button>
-        <button class="btn btn-error" @click="showToast('error')">Try Error</button>
-        <button class="btn btn-warn" @click="showToast('warn')">Try Warning</button>
-        <button class="btn btn-loading" @click="showToast('loading')">Try Loading</button>
-      </div>
     </section>
 
     <!-- API -->
-    <section class="section">
+    <section id="api" class="section section-no-border">
       <h2>API</h2>
       <pre class="code-block"><code class="language-javascript">// Basic methods
 toasts.success(message, options?)
@@ -195,8 +299,8 @@ toasts.promise(promise, options) // Handle promise states</code></pre>
     </section>
 
     <!-- Options -->
-    <section class="section">
-      <h2>Options</h2>
+    <section id="options" class="section">
+      <h3>Options</h3>
       <div class="table-wrapper">
         <table class="options-table">
           <thead>
@@ -250,7 +354,45 @@ toasts.promise(promise, options) // Handle promise states</code></pre>
 
       <h3>Available Positions</h3>
       <pre class="code-block"><code class="language-javascript">type ToastPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right" | "middle-center"</code></pre>
-      
+    </section>
+
+    <!-- Examples -->
+    <section id="examples" class="section">
+      <h2>Examples</h2>
+
+      <!-- Basic Usage -->
+      <h3 id="basic-usage">Basic Usage</h3>
+      <pre class="code-block"><code class="language-javascript">// The simplest way to use toasts - just call the methods
+toasts.success('Hello!')
+toasts.error('Something went wrong')
+toasts.loading('Loading...')
+toasts.warn('Warning message')</code></pre>
+
+      <div class="demo-buttons">
+        <button class="btn btn-success" @click="showToast('success')">Try Success</button>
+        <button class="btn btn-error" @click="showToast('error')">Try Error</button>
+        <button class="btn btn-warn" @click="showToast('warn')">Try Warning</button>
+        <button class="btn btn-loading" @click="showToast('loading')">Try Loading</button>
+      </div>
+
+      <!-- With Options -->
+      <h3 id="with-options">With Options</h3>
+      <pre class="code-block"><code class="language-javascript">// Custom duration
+toasts.success('Success!', { duration: 5000, position: 'bottom-right' })
+
+// Disable auto close
+toasts.success('Auto Close', { autoClose: false })</code></pre>
+
+      <div class="demo-buttons">
+        <button class="btn btn-primary" @click="showCustomDuration">Custom Duration (5s)</button>
+        <button class="btn btn-primary" @click="showAutoClose">Auto Close (false)</button>
+      </div>
+
+      <h3 id="position">Position</h3>
+      <pre class="code-block"><code class="language-javascript">// Set toast position
+toasts.success('Message', { position: 'top-left' })
+toasts.error('Message', { position: 'bottom-right' })</code></pre>
+
       <div class="positions-grid">
         <div class="positions-row">
           <button class="btn btn-primary" @click="showPosition('top-left')">Top Left</button>
@@ -270,31 +412,12 @@ toasts.promise(promise, options) // Handle promise states</code></pre>
       </div>
 
       <div class="demo-buttons" style="margin-top: 1.5rem; flex-direction: column;">
-        <button class="btn btn-primary" @click="showPositionDemo" style="width: 100%;">Show All</button>
+        <button class="btn btn-primary" @click="showPositionDemo" style="width: 100%;">Show All Positions</button>
         <button class="btn btn-clear" @click="clearAll">Clear</button>
-      </div>
-    </section>
-
-    <!-- Examples -->
-    <section class="section">
-      <h2>Examples</h2>
-
-      <!-- Basic Usage -->
-      <h3>Basic Usage</h3>
-      <pre class="code-block"><code class="language-javascript">// With options
-toasts.success('Success!', { duration: 5000, position: 'bottom-right' })
-
-// Multiple positions at once
-toasts.success('Top', { position: 'top-center' })
-toasts.error('Bottom', { position: 'bottom-right' })</code></pre>
-
-      <div class="demo-buttons">
-        <button class="btn btn-primary" @click="showCustomDuration">Custom Duration (5s)</button>
-        <button class="btn btn-primary" @click="showPositionDemo">Multiple Positions</button>
       </div>
 
       <!-- Update Toasts -->
-      <h3>Update Toasts</h3>
+      <h3 id="update-toasts">Update Toasts</h3>
       <pre class="code-block"><code class="language-javascript">const id = toasts.loading('Uploading...')
 // Later
 toasts.update(id, { type: 'success', message: 'Done!' })</code></pre>
@@ -304,7 +427,7 @@ toasts.update(id, { type: 'success', message: 'Done!' })</code></pre>
       </div>
 
       <!-- Promise Support -->
-      <h3>Promise Support</h3>
+      <h3 id="promise-support">Promise Support</h3>
       <pre class="code-block"><code class="language-javascript">await toasts.promise(
   fetchData(),
   {
@@ -318,34 +441,56 @@ toasts.update(id, { type: 'success', message: 'Done!' })</code></pre>
         <button class="btn btn-primary" @click="showPromiseDemo">Try Promise (50% success)</button>
       </div>
 
-      <!-- Advanced: Custom ID and Remove -->
-      <h3>Advanced: Custom ID and Remove</h3>
-      <pre class="code-block"><code class="language-javascript">// Create with custom ID
-const id = toasts.add({
-  message: 'Custom toast',
-  type: 'success',
-  id: 'my-custom-id',
+      <h3 id="managing-toasts">Managing Toasts by ID</h3>
+      <pre class="code-block"><code class="language-javascript">// Method 1: Use explicit custom ID
+// Explicit ID always creates/updates the same toast
+const explicitId = 'my-custom-id'
+toasts.add({
+  message: 'Toast #1',
+  type: 'warn',
+  id: explicitId,
   autoClose: false
 })
 
-// Update by ID
-toasts.update(id, { type: 'success', message: 'Done!' })
+// Method 2: Use returned ID
+// Returned ID always creates a new toast (always returns a new ID)
+const returnedId = toasts.add({
+  message: 'Toast #2',
+  type: 'warn',
+  autoClose: false
+})
 
-// Remove by ID
-toasts.remove(id)
+// Update specific toast by ID
+toasts.update(explicitId, { message: 'Toast #1 Updated!' })
+toasts.update(returnedId, { message: 'Toast #2 Updated!' })
 
-// Clear all
+// Remove specific toast by ID
+toasts.remove(explicitId)
+toasts.remove(returnedId)
+
+// Clear all toasts
 toasts.clear()</code></pre>
 
-      <div class="demo-buttons">
-        <button class="btn btn-primary" @click="showCustomId">Add (Custom ID)</button>
-        <button class="btn btn-warn" @click="updateCustomToast">Update by ID</button>
-        <button class="btn btn-error" @click="removeCustomId">Remove by ID</button>
+      <div class="demo-buttons" style="flex-direction: column; gap: 0.75rem;">
+        <div style="display: flex; gap: 0.75rem; width: 100%;">
+          <button class="btn btn-primary" @click="createMultipleToasts" style="flex: 1;">Create 2 Toasts</button>
+        </div>
+        <div style="display: flex; gap: 0.75rem; width: 100%;">
+          <button class="btn btn-success" @click="updateExplicitId" style="flex: 1;">Update #1 (Explicit ID)</button>
+          <button class="btn btn-warn" @click="updateReturnedId" style="flex: 1;">Update #2 (Returned ID)</button>
+        </div>
+        <div style="display: flex; gap: 0.75rem; width: 100%;">
+          <button class="btn btn-error" @click="removeExplicitId" style="flex: 1;">Remove #1</button>
+          <button class="btn btn-error" @click="removeReturnedId" style="flex: 1;">Remove #2</button>
+        </div>
+        <div style="display: flex; gap: 0.75rem; width: 100%;">
+          <button class="btn btn-clear" @click="clearAll" style="flex: 1;">Clear All</button>
+        </div>
       </div>
     </section>
 
     <!-- Styling -->
-    <section class="section">
+    <section id="styling" class="section">
       <h2>Styling</h2>
       <p>Customize colors and appearance with CSS variables:</p>
 
@@ -375,7 +520,8 @@ toasts.clear()</code></pre>
       </p>
     </footer>
 
-    <ToastsLiteProvider />
+      <ToastsLiteProvider />
+    </div>
   </div>
 </template>
 
@@ -384,6 +530,10 @@ toasts.clear()</code></pre>
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -395,11 +545,92 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.docs-wrapper {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Sidebar - Floating Text */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 240px;
+  height: 100vh;
+  background: transparent;
+  padding: 0 1.5rem;
+  overflow-y: auto;
+  z-index: 100;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.nav-item {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+  line-height: 1.4;
+  display: block;
+}
+
+.nav-item:hover {
+  color: #1a1a1a;
+}
+
+.nav-item.nav-active {
+  color: #1a1a1a;
+}
+
+.nav-subitem {
+  padding-left: 1.25rem;
+  font-size: 0.8125rem;
+  color: #999;
+}
+
+.nav-subitem:hover {
+  color: #666;
+}
+
+.nav-subitem.nav-active {
+  color: #1a1a1a;
+}
+
 .docs-container {
+  flex: 1;
   max-width: 680px;
+  width: 100%;
   margin: 0 auto;
   padding: 4rem 2rem;
   line-height: 1.6;
+  margin-left: calc(240px + (100% - 240px - 680px) / 2);
 }
 
 /* Hero Section */
@@ -440,11 +671,25 @@ body {
 .section {
   margin-bottom: 2.5rem;
   padding-bottom: 2.5rem;
+  padding-top: 4rem;
   border-bottom: 1px solid #e5e5e5;
+  scroll-margin-top: 4rem;
+}
+
+.section:first-of-type {
+  padding-top: 0;
 }
 
 .section:last-of-type {
   border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 6rem;
+}
+
+.section-no-border {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .section h2 {
@@ -454,6 +699,7 @@ body {
   letter-spacing: 0.1em;
   color: #999;
   margin-bottom: 1.5rem;
+  scroll-margin-top: 4rem;
 }
 
 .section h3 {
@@ -461,6 +707,7 @@ body {
   font-weight: 500;
   margin: 2rem 0 1rem;
   color: #666;
+  scroll-margin-top: 4rem;
 }
 
 .section p {
@@ -694,6 +941,16 @@ body {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .docs-container {
+    margin-left: auto;
+  }
+}
+
 @media (max-width: 600px) {
   .docs-container {
     padding: 3rem 1.5rem;

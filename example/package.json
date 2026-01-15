@@ -11,7 +11,7 @@
   "dependencies": {
     "highlight.js": "^11.11.1",
     "vue": "^3.3.0",
-    "vue-toasts-lite": "^0.1.1"
+    "vue-toasts-lite": "^0.1.2"
   },
   "devDependencies": {
     "@types/node": "^25.0.8",
