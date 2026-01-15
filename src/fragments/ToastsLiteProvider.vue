@@ -1,21 +1,17 @@
 <script setup lang="ts">
-import {computed, onBeforeUpdate, ref} from "vue"
+import {computed, ref} from "vue"
 
 import {toastsController} from "../model/ToastsController"
+import {useToastRefs} from "../model/useToastRefs"
 import ToastsLiteItem from "./ToastsLiteItem.vue"
 
-import type {ComponentPublicInstance} from "vue"
 import type {ToastPosition} from "../model/types"
-
-type ToastInstance = ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, typeof ToastsLiteItem> & {
-  pause: () => void
-  resume: () => void
-}
-type ToastRefMap = Record<ToastPosition, ToastInstance[]>
 
 const allPositions: ToastPosition[] = ["top-left", "top-center", "top-right", "middle-center", "bottom-left", "bottom-center", "bottom-right"]
 
 const items = ref(toastsController.toastList)
+
+const {setRef, pauseAll, resumeAll} = useToastRefs()
 
 toastsController.onToastsListChange((toasts) => {
   items.value = toasts
@@ -26,69 +22,33 @@ const groupedByPosition = computed(() => {
 
   items.value.forEach((toast) => {
     const position = toast.position || "top-center"
-    if (!groups.has(position)) {
-      groups.set(position, [])
-    }
+    if (!groups.has(position)) groups.set(position, [])
     groups.get(position)!.push(toast)
   })
 
   return groups
 })
-
-const toastRefsMap = ref<ToastRefMap>({} as ToastRefMap)
-
-onBeforeUpdate(() => {
-  for (const pos of allPositions) {
-    toastRefsMap.value[pos] = []
-  }
-})
-
-function onMouseEnter(position: ToastPosition) {
-  if (toastRefsMap.value[position]) {
-    toastRefsMap.value[position].forEach((toast: ToastInstance) => toast?.pause())
-  }
-}
-
-function onMouseLeave(position: ToastPosition) {
-  if (toastRefsMap.value[position]) {
-    toastRefsMap.value[position].forEach((toast: ToastInstance) => toast?.resume())
-  }
-}
-
-function addToastRef(position: ToastPosition, el: ComponentPublicInstance | Element | null) {
-  if (!toastRefsMap.value[position]) {
-    toastRefsMap.value[position] = []
-  }
-
-  if (el && "pause" in el && "resume" in el) {
-    toastRefsMap.value[position].push(el as ToastInstance)
-  }
-}
 </script>
 
 <template>
   <Teleport to="body">
-    <div
-      v-for="position in allPositions"
-      :key="position"
-      :class="['toasts-lite__toast-container', `toasts-lite__${position}`]"
-      @mouseenter="onMouseEnter(position)"
-      @mouseleave="onMouseLeave(position)"
-    >
-      <transition-group name="toasts-lite" appear>
-        <ToastsLiteItem
-          v-for="item in groupedByPosition.get(position) || []"
-          :id="item.id"
-          :ref="(el) => addToastRef(position, el)"
-          :key="item.id"
-          :type="item.type"
-          :message="item.message"
-          :auto-close="item.autoClose"
-          :duration="item.duration"
-          :position="item.position"
-          @close="toastsController.remove(item.id)"
-        />
-      </transition-group>
+    <div v-for="position in allPositions" :key="position" :class="['toasts-lite__toast-container', `toasts-lite__${position}`]">
+      <div class="toasts-lite__toast-wrapper" @mouseenter="pauseAll(position)" @mouseleave="resumeAll(position)">
+        <transition-group name="toasts-lite" appear>
+          <ToastsLiteItem
+            v-for="(item, index) in groupedByPosition.get(position) || []"
+            :id="item.id"
+            :ref="(el) => setRef(position, index, el)"
+            :key="item.id"
+            :type="item.type"
+            :message="item.message"
+            :auto-close="item.autoClose"
+            :duration="item.duration"
+            :position="item.position"
+            @close="toastsController.remove(item.id)"
+          />
+        </transition-group>
+      </div>
     </div>
   </Teleport>
 </template>

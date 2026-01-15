@@ -1,5 +1,4 @@
-import ToastsLiteProvider from "./fragments/ToastsLiteProvider.vue"
+export {default as ToastsLiteProvider} from "./fragments/ToastsLiteProvider.vue"
+export {toastsController as toasts} from "./model/ToastsController"
 
 export type * from "./model/types"
-export {toastsController as toasts} from "./model/ToastsController"
-export {ToastsLiteProvider}

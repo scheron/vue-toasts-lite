@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watchEffect} from "vue"
+import {onMounted, onUnmounted, ref, watch} from "vue"
 
 import type {ToastProps} from "../model/types"
 
@@ -25,11 +25,12 @@ function pause() {
 
 function resume() {
   if (!timer.value && remainingTime.value > 0) {
+    startedAt.value = Date.now()
     timer.value = setTimeout(close, remainingTime.value)
   }
 }
 
-watchEffect(() => {
+function startTimer() {
   if (timer.value) {
     clearTimeout(timer.value)
     timer.value = null
@@ -39,6 +40,23 @@ watchEffect(() => {
     startedAt.value = Date.now()
     remainingTime.value = props.duration
     timer.value = setTimeout(close, props.duration)
+  }
+}
+
+watch(
+  () => [props.autoClose, props.duration],
+  () => {
+    startTimer()
+  },
+)
+
+onMounted(() => {
+  startTimer()
+})
+
+onUnmounted(() => {
+  if (timer.value) {
+    clearTimeout(timer.value)
   }
 })
 
