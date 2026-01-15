@@ -20,21 +20,14 @@ A lightweight toast notifications library for Vue 3.
 - 🎯 Promise support
 - 🖱️ Pause on hover
 
-## Installation
+## Quick Start
 
+### 1. Install the package:
 ```bash
 npm install vue-toasts-lite
 ```
 
-## Quick Start
-
-**Three steps to start using toasts:**
-
-1. Install the package
-2. Add `ToastsLiteProvider` to your app
-3. Call `toasts.success()` from anywhere
-
-### 1. Add the provider to your `App.vue`:
+### 2. Add `ToastsLiteProvider` & `vue-toasts-lite/style.css` to app:
 
 ```vue
 <script setup>
@@ -50,7 +43,7 @@ import 'vue-toasts-lite/style.css'
 </template>
 ```
 
-### 2. Use anywhere in your app:
+### 3. Use anywhere in your app:
 
 ```vue
 <script setup>
