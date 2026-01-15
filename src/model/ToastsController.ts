@@ -1,5 +1,6 @@
-import type {Id, Toast, ToastOptions, ToastPromiseOptions, ToastProps, ToastSimpleOptions} from "./types"
 import {ObservableMap} from "./ObservableMap"
+
+import type {Id, Toast, ToastOptions, ToastPromiseOptions, ToastProps, ToastSimpleOptions} from "./types"
 
 const DEFAULT_OPTIONS = {
   type: "success",

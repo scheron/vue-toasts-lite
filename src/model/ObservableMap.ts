@@ -22,12 +22,11 @@ export class ObservableMap<K, V> extends Map<K, V> {
     this.subscribers.push(callback)
 
     return () => {
-      this.subscribers = this.subscribers.filter(cb => cb !== callback)
+      this.subscribers = this.subscribers.filter((cb) => cb !== callback)
     }
   }
 
   private notify() {
-    this.subscribers.forEach(callback => callback(Array.from(this.values())))
+    this.subscribers.forEach((callback) => callback(Array.from(this.values())))
   }
 }
-

@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import {computed, ref, onBeforeUpdate, type ComponentPublicInstance} from "vue"
+import {computed, onBeforeUpdate, ref} from "vue"
+
+import {toastsController} from "../model/ToastsController"
 import ToastsLiteItem from "./ToastsLiteItem.vue"
-import {toastsController} from '../model/ToastsController'
+
+import type {ComponentPublicInstance} from "vue"
 import type {ToastPosition} from "../model/types"
 
 type ToastInstance = ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, typeof ToastsLiteItem> & {
@@ -10,11 +13,7 @@ type ToastInstance = ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, fal
 }
 type ToastRefMap = Record<ToastPosition, ToastInstance[]>
 
-const allPositions: ToastPosition[] = [
-  "top-left", "top-center", "top-right",
-  "middle-center",
-  "bottom-left", "bottom-center", "bottom-right"
-]
+const allPositions: ToastPosition[] = ["top-left", "top-center", "top-right", "middle-center", "bottom-left", "bottom-center", "bottom-right"]
 
 const items = ref(toastsController.toastList)
 
@@ -24,15 +23,15 @@ toastsController.onToastsListChange((toasts) => {
 
 const groupedByPosition = computed(() => {
   const groups = new Map<ToastPosition, typeof items.value>()
-  
-  items.value.forEach(toast => {
+
+  items.value.forEach((toast) => {
     const position = toast.position || "top-center"
     if (!groups.has(position)) {
       groups.set(position, [])
     }
     groups.get(position)!.push(toast)
   })
-  
+
   return groups
 })
 
@@ -61,7 +60,7 @@ function addToastRef(position: ToastPosition, el: ComponentPublicInstance | Elem
     toastRefsMap.value[position] = []
   }
 
-  if (el && 'pause' in el && 'resume' in el) {
+  if (el && "pause" in el && "resume" in el) {
     toastRefsMap.value[position].push(el as ToastInstance)
   }
 }
@@ -69,11 +68,11 @@ function addToastRef(position: ToastPosition, el: ComponentPublicInstance | Elem
 
 <template>
   <Teleport to="body">
-    <div 
-      v-for="position in allPositions" 
-      :key="position" 
-      :class="['toasts-lite__toast-container', `toasts-lite__${position}`]" 
-      @mouseenter="onMouseEnter(position)" 
+    <div
+      v-for="position in allPositions"
+      :key="position"
+      :class="['toasts-lite__toast-container', `toasts-lite__${position}`]"
+      @mouseenter="onMouseEnter(position)"
       @mouseleave="onMouseLeave(position)"
     >
       <transition-group name="toasts-lite" appear>
