@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {computed, HTMLAttributes, ref} from "vue"
+import {computed, ref} from "vue"
 
 import {toastsController} from "../model/ToastsController"
 import {useToastRefs} from "../model/useToastRefs"
 import ToastsLiteItem from "./ToastsLiteItem.vue"
 
+import type {HTMLAttributes} from "vue"
 import type {Toast, ToastPosition} from "../model/types"
 
 const props = defineProps<{
