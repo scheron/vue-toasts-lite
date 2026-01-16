@@ -71,6 +71,10 @@ toasts.update(id, options)       // Update existing toast
 toasts.remove(id?)               // Remove toast(s)
 toasts.clear()                   // Clear all toasts
 toasts.promise(promise, options) // Handle promise states
+
+// Monitoring methods
+toasts.toastList                 // Get array of all active toasts
+toasts.onToastsListChange(callback) // Subscribe to toast list changes
 ```
 
 ## Options
@@ -121,7 +125,6 @@ await toasts.promise(
   }
 )
 ```
-
 
 ## Styling
 
