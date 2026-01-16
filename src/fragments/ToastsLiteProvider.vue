@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import {computed, ref} from "vue"
+import {computed, HTMLAttributes, ref} from "vue"
 
 import {toastsController} from "../model/ToastsController"
 import {useToastRefs} from "../model/useToastRefs"
 import ToastsLiteItem from "./ToastsLiteItem.vue"
 
-import type {ToastPosition, Toast} from "../model/types"
+import type {Toast, ToastPosition} from "../model/types"
+
+const props = defineProps<{
+  containerClass?: HTMLAttributes["class"]
+  wrapperClass?: HTMLAttributes["class"]
+  itemClass?: HTMLAttributes["class"]
+}>()
 
 const allPositions: ToastPosition[] = ["top-left", "top-center", "top-right", "middle-center", "bottom-left", "bottom-center", "bottom-right"]
 
@@ -32,8 +38,8 @@ const groupedByPosition = computed(() => {
 
 <template>
   <Teleport to="body">
-    <div v-for="position in allPositions" :key="position" :class="['toasts-lite__toast-container', `toasts-lite__${position}`]">
-      <div class="toasts-lite__toast-wrapper" @mouseenter="pauseAll(position)" @mouseleave="resumeAll(position)">
+    <div v-for="position in allPositions" :key="position" class="toasts-lite__toast-container" :class="[containerClass, `toasts-lite__${position}`]">
+      <div class="toasts-lite__toast-wrapper" :class="wrapperClass" @mouseenter="pauseAll(position)" @mouseleave="resumeAll(position)">
         <transition-group name="toasts-lite" appear>
           <ToastsLiteItem
             v-for="(item, index) in groupedByPosition.get(position) || []"
@@ -45,6 +51,7 @@ const groupedByPosition = computed(() => {
             :auto-close="item.autoClose"
             :duration="item.duration"
             :position="item.position"
+            :class="itemClass"
             @close="toastsController.remove(item.id)"
           />
         </transition-group>

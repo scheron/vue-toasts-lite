@@ -492,7 +492,20 @@ toasts.clear()</code></pre>
     <!-- Styling -->
     <section id="styling" class="section">
       <h2>Styling</h2>
-      <p>Customize colors and appearance with CSS variables:</p>
+      <p>Customize colors and appearance with CSS variables or by passing custom classes to <code class="inline-code">ToastsLiteProvider</code>:</p>
+
+      <h3>Custom Classes</h3>
+      <p>You can pass custom classes to <code class="inline-code">ToastsLiteProvider</code>:</p>
+      <pre class="code-block"><code class="language-xml">&lt;ToastsLiteProvider 
+  container-class="custom-container"
+  wrapper-class="custom-wrapper"
+  item-class="custom-item"
+/&gt;</code></pre>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #666; font-size: 0.9375rem;">
+        <li><code class="inline-code">container-class</code> - class for toast container</li>
+        <li><code class="inline-code">wrapper-class</code> - class for toast wrapper</li>
+        <li><code class="inline-code">item-class</code> - class for individual toast items</li>
+      </ul>
 
       <h3>CSS Variables</h3>
       <pre class="code-block"><code class="language-css">:root {

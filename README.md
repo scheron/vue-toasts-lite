@@ -125,7 +125,23 @@ await toasts.promise(
 
 ## Styling
 
-Customize colors and appearance with CSS variables:
+Customize colors and appearance with CSS variables or by passing custom classes to `ToastsLiteProvider`:
+
+### Custom Classes
+
+You can pass custom classes to `ToastsLiteProvider`:
+
+```vue
+<ToastsLiteProvider 
+  container-class="custom-container"
+  wrapper-class="custom-wrapper"
+  item-class="custom-item"
+/>
+```
+
+- `container-class` - class for toast container
+- `wrapper-class` - class for toast wrapper
+- `item-class` - class for individual toast items
 
 ### CSS Variables
 
