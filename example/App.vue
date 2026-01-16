@@ -706,7 +706,6 @@ body {
   margin: 0 auto;
   padding: 4rem 2rem;
   line-height: 1.6;
-  margin-left: calc(240px + (100% - 240px - 680px) / 2);
 }
 
 /* Hero Section */
