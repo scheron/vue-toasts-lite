@@ -123,6 +123,16 @@ export class ToastsController implements Toast {
   }
 
   /**
+   * Add an info toast
+   * @param message - The message to display in the toast
+   * @param options - The options for the toast
+   * @returns The id of the toast
+   */
+  public info(message: string, options?: Omit<ToastSimpleOptions, "type">) {
+    return this.addOrUpdate({...options, message, type: "info"})
+  }
+
+  /**
    * Add a promise toast
    * @param promise - The promise to display in the toast
    * @param options - The options for the toast

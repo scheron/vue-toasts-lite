@@ -101,8 +101,8 @@
     transform: translate(-50%, -50%);
     width: 12px;
     height: 12px;
-    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>');
-    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>');
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>');
+    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>');
 
     background-color: var(--toasts-lite-icon-color);
     background-size: 100%;
@@ -157,8 +157,36 @@
     transform: translate(-50%, -50%);
     width: 12px;
     height: 12px;
-    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="5" stroke="currentColor" ><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" /></svg>');
-    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="5" stroke="currentColor" ><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" /></svg>');
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="black" ><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" /></svg>');
+    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="black" ><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" /></svg>');
+
+    background-color: var(--toasts-lite-icon-color);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.toasts-lite__info {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: var(--toasts-lite-info);
+  position: relative;
+  opacity: 0;
+  animation: scaleAnimation 0.3s cubic-bezier(0.75, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 100ms;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12v7M12 5h.01" /></svg>');
+    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12v7M12 5h.01" /></svg>');
 
     background-color: var(--toasts-lite-icon-color);
     background-size: 100%;
