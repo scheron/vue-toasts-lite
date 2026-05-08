@@ -23,6 +23,7 @@
 
 .toasts-lite__toast {
   font-family: var(--toasts-lite-font-family);
+  font-size: var(--toasts-lite-font-size);
   display: flex;
   justify-content: center;
   align-items: center;
