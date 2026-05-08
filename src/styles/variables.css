@@ -10,6 +10,11 @@
   --toasts-lite-warn: var(--tl-warn, hsl(45, 100%, 51%));
   --toasts-lite-info: var(--tl-info, hsl(210, 80%, 55%));
   --toasts-lite-icon-color: var(--tl-icon-color, hsl(0, 0%, 100%));
-  --toasts-lite-loading-border-main: var(--tl-loading-border, hsl(0, 0%, 15%));
-  --toasts-lite-loading-border-bg: var(--tl-loading-bg, hsl(0, 0%, 98%));
+  --toasts-lite-loading-border: var(--tl-loading-border, hsl(0, 0%, 15%));
+
+  --toasts-lite-bg-success: var(--tl-success-bg, color-mix(in srgb, var(--toasts-lite-success) 20%, var(--toasts-lite-bg)));
+  --toasts-lite-bg-error: var(--tl-error-bg, color-mix(in srgb, var(--toasts-lite-error) 20%, var(--toasts-lite-bg)));
+  --toasts-lite-bg-warn: var(--tl-warn-bg, color-mix(in srgb, var(--toasts-lite-warn) 20%, var(--toasts-lite-bg)));
+  --toasts-lite-bg-info: var(--tl-info-bg, color-mix(in srgb, var(--toasts-lite-info) 20%, var(--toasts-lite-bg)));
+  --toasts-lite-bg-loading: var(--tl-loading-bg, var(--toasts-lite-bg));
 }

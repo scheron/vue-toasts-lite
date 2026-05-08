@@ -66,7 +66,7 @@ defineExpose({
 })
 </script>
 <template>
-  <div class="toasts-lite__toast" :style="`--toast-duration: ${duration}s;`" @click.prevent="close">
+  <div :class="['toasts-lite__toast', `toasts-lite__toast--${type}`]" :style="`--toast-duration: ${duration}s;`" @click.prevent="close">
     <div v-if="['success', 'error', 'loading', 'warn', 'info'].includes(type)" class="toasts-lite__icon">
       <div :class="`toasts-lite__${type}`" />
     </div>

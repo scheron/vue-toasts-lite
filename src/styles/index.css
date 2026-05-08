@@ -202,7 +202,23 @@
   box-sizing: border-box;
   border: 2px solid;
   border-radius: 100%;
-  border-color: var(--toasts-lite-loading-border-main);
-  border-right-color: var(--toasts-lite-loading-border-bg);
+  border-color: var(--toasts-lite-loading-border);
+  border-right-color: transparent;
   animation: loadingRotate 1s linear infinite;
+}
+
+.toasts-lite__toast--success {
+  background: var(--toasts-lite-bg-success);
+}
+.toasts-lite__toast--error {
+  background: var(--toasts-lite-bg-error);
+}
+.toasts-lite__toast--warn {
+  background: var(--toasts-lite-bg-warn);
+}
+.toasts-lite__toast--info {
+  background: var(--toasts-lite-bg-info);
+}
+.toasts-lite__toast--loading {
+  background: var(--toasts-lite-bg-loading);
 }

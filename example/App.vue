@@ -590,7 +590,12 @@ unsubscribe()</code></pre>
   --tl-info: hsl(210, 80%, 55%);
   --tl-icon-color: hsl(0, 0%, 100%);
   --tl-loading-border: hsl(0, 0%, 15%);
-  --tl-loading-bg: hsl(0, 0%, 98%);
+
+  --tl-success-bg: color-mix(in srgb, var(--tl-success) 20%, var(--tl-bg));
+  --tl-error-bg: color-mix(in srgb, var(--tl-error) 20%, var(--tl-bg));
+  --tl-warn-bg: color-mix(in srgb, var(--tl-warn) 20%, var(--tl-bg));
+  --tl-info-bg: color-mix(in srgb, var(--tl-info) 20%, var(--tl-bg));
+  --tl-loading-bg: var(--tl-bg);
 }</code></pre>
       </section>
 
