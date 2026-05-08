@@ -306,8 +306,7 @@ export class ToastsController implements IToastsController {
 
     if (this.toasts.has(id)) {
       const toast = this.toasts.get(id)!
-      Object.assign(toast, options)
-      this.toasts.set(id, toast)
+      this.toasts.set(id, {...toast, ...options} as Toast)
       return id
     }
 
