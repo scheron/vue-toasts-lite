@@ -7,6 +7,7 @@
   --toasts-lite-success: var(--tl-success, hsl(145, 63%, 42%));
   --toasts-lite-error: var(--tl-error, hsl(0, 79%, 63%));
   --toasts-lite-warn: var(--tl-warn, hsl(45, 100%, 51%));
+  --toasts-lite-info: var(--tl-info, hsl(210, 80%, 55%));
   --toasts-lite-icon-color: var(--tl-icon-color, hsl(0, 0%, 100%));
   --toasts-lite-loading-border-main: var(--tl-loading-border, hsl(0, 0%, 15%));
   --toasts-lite-loading-border-bg: var(--tl-loading-bg, hsl(0, 0%, 98%));

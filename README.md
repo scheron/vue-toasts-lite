@@ -13,7 +13,7 @@ A lightweight toast notifications library for Vue 3.
 ## Features
 
 - 🚀 Lightweight and easy to use
-- 🎨 Multiple toast types (success, error, loading, warn)
+- 🎨 Multiple toast types (success, error, loading, warn, info)
 - 📍 Multiple positions (can show in different corners simultaneously)
 - ⚡️ Customizable duration, auto-close, and styling
 - 🎯 TypeScript support
@@ -53,6 +53,7 @@ toasts.success('Hello!')
 toasts.error('Something went wrong')
 toasts.loading('Loading...')
 toasts.warn('Warning message')
+toasts.info('Info message')
 </script>
 ```
 
@@ -64,6 +65,7 @@ toasts.success(message, options?)
 toasts.error(message, options?)
 toasts.loading(message, options?)
 toasts.warn(message, options?)
+toasts.info(message, options?)
 
 // Advanced methods
 toasts.add(options)              // Create custom toast
@@ -82,7 +84,7 @@ toasts.onToastsListChange(callback) // Subscribe to toast list changes
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `message` | `string` | - | Message to display |
-| `type` | `'success' \| 'error' \| 'loading' \| 'warn'` | `'success'` | Toast type |
+| `type` | `'success' \| 'error' \| 'loading' \| 'warn' \| 'info'` | `'success'` | Toast type |
 | `duration` | `number` | `3000` | Duration in milliseconds |
 | `autoClose` | `boolean` | `true` | Auto-close behavior |
 | `position` | `ToastPosition` | `'top-center'` | Toast position |
@@ -158,6 +160,7 @@ You can pass custom classes to `ToastsLiteProvider`:
   --tl-success: hsl(145, 63%, 42%);
   --tl-error: hsl(0, 79%, 63%);
   --tl-warn: hsl(45, 100%, 51%);
+  --tl-info: hsl(210, 80%, 55%);
   --tl-icon-color: hsl(0, 0%, 100%);
   --tl-loading-border: hsl(0, 0%, 15%);
   --tl-loading-bg: hsl(0, 0%, 98%);

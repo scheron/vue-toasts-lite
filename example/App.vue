@@ -42,6 +42,8 @@ const showToast = (type: ToastType) => {
     toasts.error(`This is an ${type} toast`, {duration: 3000})
   } else if (type === "loading") {
     toasts.loading(`This is a ${type} toast`, {duration: 3000})
+  } else if (type === "info") {
+    toasts.info(`This is an ${type} toast`, {duration: 3000})
   } else {
     toasts.warn(`This is a ${type} toast`, {duration: 3000})
   }
@@ -309,6 +311,7 @@ toasts.success('Hello!')
 toasts.error('Something went wrong')
 toasts.loading('Loading...')
 toasts.warn('Warning message')
+toasts.info('Info message')
 &lt;/script&gt;</code></pre>
       </section>
 
@@ -320,6 +323,7 @@ toasts.success(message, options?)
 toasts.error(message, options?)
 toasts.loading(message, options?)
 toasts.warn(message, options?)
+toasts.info(message, options?)
 
 // Advanced methods
 toasts.add(options)              // Create custom toast
@@ -355,7 +359,7 @@ toasts.onToastsListChange(callback) // Subscribe to toast list changes</code></p
               </tr>
               <tr>
                 <td><code class="inline-code">type</code></td>
-                <td><code class="inline-code">'success' | 'error' | 'loading' | 'warn'</code></td>
+                <td><code class="inline-code">'success' | 'error' | 'loading' | 'warn' | 'info'</code></td>
                 <td><code class="inline-code">'success'</code></td>
                 <td>Toast type</td>
               </tr>
@@ -403,13 +407,15 @@ toasts.onToastsListChange(callback) // Subscribe to toast list changes</code></p
 toasts.success('Hello!')
 toasts.error('Something went wrong')
 toasts.loading('Loading...')
-toasts.warn('Warning message')</code></pre>
+toasts.warn('Warning message')
+toasts.info('Info message')</code></pre>
 
         <div class="demo-buttons">
           <button class="btn btn-success" @click="showToast('success')">Try Success</button>
           <button class="btn btn-error" @click="showToast('error')">Try Error</button>
           <button class="btn btn-warn" @click="showToast('warn')">Try Warning</button>
           <button class="btn btn-loading" @click="showToast('loading')">Try Loading</button>
+          <button class="btn btn-info" @click="showToast('info')">Try Info</button>
         </div>
 
         <!-- With Options -->
@@ -580,6 +586,7 @@ unsubscribe()</code></pre>
   --tl-success: hsl(145, 63%, 42%);
   --tl-error: hsl(0, 79%, 63%);
   --tl-warn: hsl(45, 100%, 51%);
+  --tl-info: hsl(210, 80%, 55%);
   --tl-icon-color: hsl(0, 0%, 100%);
   --tl-loading-border: hsl(0, 0%, 15%);
   --tl-loading-bg: hsl(0, 0%, 98%);
@@ -946,6 +953,16 @@ body {
 .btn-loading:hover {
   border-color: #2196f3;
   color: #2196f3;
+}
+
+.btn-info {
+  border-color: #e5e5e5;
+  color: #1a1a1a;
+}
+
+.btn-info:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
 }
 
 .btn-primary {

@@ -1,4 +1,4 @@
-export type ToastType = "success" | "loading" | "error" | "warn"
+export type ToastType = "success" | "loading" | "error" | "warn" | "info"
 export type ToastPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right" | "middle-center"
 
 export type Toast = {
@@ -65,6 +65,7 @@ export interface IToastsController {
   loading: (message: string, options?: ToastSimpleOptions) => Id
   error: (message: string, options?: ToastSimpleOptions) => Id
   warn: (message: string, options?: ToastSimpleOptions) => Id
+  info: (message: string, options?: ToastSimpleOptions) => Id
   promise: <T>(promise: Promise<T>, options: ToastPromiseOptions) => Promise<Id>
   remove: (id?: Id) => void
   clear: () => void

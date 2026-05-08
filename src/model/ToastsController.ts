@@ -230,6 +230,26 @@ export class ToastsController implements IToastsController {
   }
 
   /**
+   * Displays an **info** toast notification.
+   *
+   * @param message - Text content to display in the toast
+   * @param options - Optional configuration (position, duration, autoClose, id)
+   * @returns Unique identifier of the created toast
+   *
+   * @example
+   * ```ts
+   * // Simple info message
+   * toasts.info('New version available')
+   *
+   * // With custom position
+   * toasts.info('Tip: press Cmd+K to search', { position: 'bottom-right' })
+   * ```
+   */
+  public info(message: string, options?: Omit<ToastSimpleOptions, "type">) {
+    return this.addOrUpdate({...options, message, type: "info"})
+  }
+
+  /**
    * Displays a **promise** toast that automatically updates based on promise resolution.
    *
    * Shows a loading toast while the promise is pending, then automatically
