@@ -12,6 +12,7 @@ const props = defineProps<{
   containerClass?: HTMLAttributes["class"]
   wrapperClass?: HTMLAttributes["class"]
   itemClass?: HTMLAttributes["class"]
+  hideCloseButton?: boolean
 }>()
 
 const allPositions: ToastPosition[] = ["top-left", "top-center", "top-right", "middle-center", "bottom-left", "bottom-center", "bottom-right"]
@@ -52,6 +53,8 @@ const groupedByPosition = computed(() => {
             :auto-close="item.autoClose"
             :duration="item.duration"
             :position="item.position"
+            :closable="item.closable"
+            :hide-close-button="!!props.hideCloseButton"
             :class="itemClass"
             @close="toastsController.remove(item.id)"
           />

@@ -45,13 +45,53 @@
   max-width: 1200px;
   padding: 10px 20px;
   border-radius: var(--toasts-lite-radius);
-  cursor: pointer;
+  cursor: default;
   pointer-events: auto;
   text-overflow: ellipsis;
 }
 
+.toasts-lite__toast--clickable {
+  cursor: pointer;
+}
+
 .toasts-lite__icon {
   margin-right: 12px;
+}
+
+.toasts-lite__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 12px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.6;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.toasts-lite__close:hover {
+  opacity: 1;
+}
+
+.toasts-lite__close-icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: currentColor;
+  mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12" /></svg>');
+  -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12" /></svg>');
+  mask-size: 100%;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100%;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
 }
 
 .toasts-lite__top-left {

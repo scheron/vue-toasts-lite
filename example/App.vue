@@ -106,6 +106,29 @@ const showAutoClose = () => {
   toasts.success("Auto Close", {autoClose: false})
 }
 
+const showStickyToast = () => {
+  toasts.warn("Sticky — only toasts.remove(id) can dismiss me", {autoClose: false, closable: false})
+}
+
+const showClosableNoAutoClose = () => {
+  toasts.info("Click the × or the toast body to dismiss", {autoClose: false, closable: true})
+}
+
+const showNonClosable = () => {
+  toasts.success("No × button, timer-only", {closable: false, duration: 4000})
+}
+
+const hideCloseButton = ref(false)
+const toggleHideCloseButton = () => {
+  hideCloseButton.value = !hideCloseButton.value
+  toasts.add({
+    id: "hide-close-button-demo",
+    type: "success",
+    message: `hide-close-button = ${hideCloseButton.value}`,
+    duration: 2500,
+  })
+}
+
 // Managing toasts by ID
 const toastIds = {
   explicit: "my-custom-id",
@@ -212,6 +235,7 @@ const sections = [
   "examples",
   "basic-usage",
   "with-options",
+  "closable",
   "position",
   "update-toasts",
   "promise-support",
@@ -263,6 +287,7 @@ const updateActiveSection = () => {
         <a href="#examples" :class="['nav-item', {'nav-active': activeSection === 'examples'}]">Examples</a>
         <a href="#basic-usage" :class="['nav-item', 'nav-subitem', {'nav-active': activeSection === 'basic-usage'}]">Basic Usage</a>
         <a href="#with-options" :class="['nav-item', 'nav-subitem', {'nav-active': activeSection === 'with-options'}]">With Options</a>
+        <a href="#closable" :class="['nav-item', 'nav-subitem', {'nav-active': activeSection === 'closable'}]">Closable</a>
         <a href="#position" :class="['nav-item', 'nav-subitem', {'nav-active': activeSection === 'position'}]">Position</a>
         <a href="#update-toasts" :class="['nav-item', 'nav-subitem', {'nav-active': activeSection === 'update-toasts'}]">Update Toasts</a>
         <a href="#promise-support" :class="['nav-item', 'nav-subitem', {'nav-active': activeSection === 'promise-support'}]">Promise Support</a>
@@ -382,6 +407,12 @@ toasts.onToastsListChange(callback) // Subscribe to toast list changes</code></p
                 <td>Toast position</td>
               </tr>
               <tr>
+                <td><code class="inline-code">closable</code></td>
+                <td><code class="inline-code">boolean</code></td>
+                <td><code class="inline-code">true</code></td>
+                <td>Show × button and allow body click to dismiss</td>
+              </tr>
+              <tr>
                 <td><code class="inline-code">id</code></td>
                 <td><code class="inline-code">string</code></td>
                 <td>auto</td>
@@ -429,6 +460,44 @@ toasts.success('Auto Close', { autoClose: false })</code></pre>
         <div class="demo-buttons">
           <button class="btn btn-primary" @click="showCustomDuration">Custom Duration (5s)</button>
           <button class="btn btn-primary" @click="showAutoClose">Auto Close (false)</button>
+        </div>
+
+        <h3 id="closable">Closable &amp; Close Button</h3>
+        <p style="margin-bottom: 1rem; color: #666; font-size: 0.9375rem">
+          The <code class="inline-code">closable</code> flag (default <code class="inline-code">true</code>) controls two things at once: visibility of the <code class="inline-code">×</code> button on the right
+          and whether clicking the toast body dismisses it. When <code class="inline-code">false</code>, the toast can only be closed by the auto-close timer or programmatically via
+          <code class="inline-code">toasts.remove(id)</code>.
+        </p>
+        <pre class="code-block"><code class="language-javascript">// Default — close button visible, body click closes
+toasts.success('Saved')
+
+// Sticky — no button, no body click, no timer
+toasts.warn('Sticky', { autoClose: false, closable: false })
+
+// No timer but user can still dismiss via × or body click
+toasts.info('Click to dismiss', { autoClose: false, closable: true })
+
+// Auto-close only, no × button
+toasts.success('Timer-only', { closable: false })</code></pre>
+
+        <div class="demo-buttons">
+          <button class="btn btn-primary" @click="showClosableNoAutoClose">No autoClose, closable</button>
+          <button class="btn btn-warn" @click="showStickyToast">Sticky (no dismiss)</button>
+          <button class="btn btn-success" @click="showNonClosable">No × button, timer-only</button>
+        </div>
+
+        <h4 style="margin-top: 1.5rem">Global override on the Provider</h4>
+        <p style="margin-bottom: 1rem; color: #666; font-size: 0.9375rem">
+          <code class="inline-code">hide-close-button</code> on <code class="inline-code">ToastsLiteProvider</code> is purely visual — it hides the
+          <code class="inline-code">×</code> on every toast, but clicking the toast body still dismisses it (so long as the toast itself is <code class="inline-code">closable</code>).
+          <code class="inline-code">closable: false</code> on a toast always wins: no button, no body click, no dismiss.
+        </p>
+        <pre class="code-block"><code class="language-xml">&lt;ToastsLiteProvider :hide-close-button="true" /&gt;</code></pre>
+
+        <div class="demo-buttons">
+          <button class="btn btn-primary" @click="toggleHideCloseButton">
+            Toggle hide-close-button (currently: {{ hideCloseButton ? "true" : "false" }})
+          </button>
         </div>
 
         <h3 id="position">Position</h3>
@@ -621,7 +690,7 @@ unsubscribe()</code></pre>
         </p>
       </footer>
 
-      <ToastsLiteProvider />
+      <ToastsLiteProvider :hide-close-button="hideCloseButton" />
     </div>
   </div>
 </template>

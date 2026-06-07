@@ -39,6 +39,12 @@ export type Toast = {
    * @default "top-center"
    */
   position?: ToastPosition
+
+  /**
+   * Whether to show a close button on the right side of the toast.
+   * @default true
+   */
+  closable: boolean
 }
 
 export type Id = string

@@ -8,6 +8,7 @@ const DEFAULT_OPTIONS = {
   autoClose: true,
   duration: 3000,
   position: "top-center",
+  closable: true,
 }
 
 export class ToastsController implements IToastsController {
