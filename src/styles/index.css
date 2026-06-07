@@ -21,6 +21,16 @@
   pointer-events: auto;
 }
 
+.toasts-lite__top-left .toasts-lite__toast-wrapper,
+.toasts-lite__bottom-left .toasts-lite__toast-wrapper {
+  align-items: flex-start;
+}
+
+.toasts-lite__top-right .toasts-lite__toast-wrapper,
+.toasts-lite__bottom-right .toasts-lite__toast-wrapper {
+  align-items: flex-end;
+}
+
 .toasts-lite__toast {
   font-family: var(--toasts-lite-font-family);
   font-size: var(--toasts-lite-font-size);
