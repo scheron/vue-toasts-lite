@@ -167,6 +167,11 @@ You can pass custom classes to `ToastsLiteProvider`:
   --tl-warn-bg: color-mix(in srgb, var(--tl-warn) 20%, var(--tl-bg));
   --tl-info-bg: color-mix(in srgb, var(--tl-info) 20%, var(--tl-bg));
   --tl-loading-bg: var(--tl-bg);
+
+  --tl-success-border: color-mix(in srgb, var(--tl-success) 40%, var(--tl-border));
+  --tl-error-border: color-mix(in srgb, var(--tl-error) 40%, var(--tl-border));
+  --tl-warn-border: color-mix(in srgb, var(--tl-warn) 40%, var(--tl-border));
+  --tl-info-border: color-mix(in srgb, var(--tl-info) 40%, var(--tl-border));
 }
 ```
 

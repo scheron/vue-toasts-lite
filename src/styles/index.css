@@ -209,15 +209,19 @@
 
 .toasts-lite__toast--success {
   background: var(--toasts-lite-bg-success);
+  border-color: var(--toasts-lite-border-success);
 }
 .toasts-lite__toast--error {
   background: var(--toasts-lite-bg-error);
+  border-color: var(--toasts-lite-border-error);
 }
 .toasts-lite__toast--warn {
   background: var(--toasts-lite-bg-warn);
+  border-color: var(--toasts-lite-border-warn);
 }
 .toasts-lite__toast--info {
   background: var(--toasts-lite-bg-info);
+  border-color: var(--toasts-lite-border-info);
 }
 .toasts-lite__toast--loading {
   background: var(--toasts-lite-bg-loading);

@@ -17,4 +17,9 @@
   --toasts-lite-bg-warn: var(--tl-warn-bg, color-mix(in srgb, var(--toasts-lite-warn) 20%, var(--toasts-lite-bg)));
   --toasts-lite-bg-info: var(--tl-info-bg, color-mix(in srgb, var(--toasts-lite-info) 20%, var(--toasts-lite-bg)));
   --toasts-lite-bg-loading: var(--tl-loading-bg, var(--toasts-lite-bg));
+
+  --toasts-lite-border-success: var(--tl-success-border, color-mix(in srgb, var(--toasts-lite-success) 40%, var(--toasts-lite-border)));
+  --toasts-lite-border-error: var(--tl-error-border, color-mix(in srgb, var(--toasts-lite-error) 40%, var(--toasts-lite-border)));
+  --toasts-lite-border-warn: var(--tl-warn-border, color-mix(in srgb, var(--toasts-lite-warn) 40%, var(--toasts-lite-border)));
+  --toasts-lite-border-info: var(--tl-info-border, color-mix(in srgb, var(--toasts-lite-info) 40%, var(--toasts-lite-border)));
 }
