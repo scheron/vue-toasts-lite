@@ -161,18 +161,24 @@ You can pass custom classes to `ToastsLiteProvider`:
   --tl-warn: hsl(45, 100%, 51%);
   --tl-info: hsl(210, 80%, 55%);
   --tl-icon-color: hsl(0, 0%, 100%);
-  --tl-loading-border: hsl(0, 0%, 15%);
+  --tl-spinner-color: hsl(0, 0%, 15%);
 
-  --tl-success-bg: color-mix(in srgb, var(--tl-success) 20%, var(--tl-bg));
-  --tl-error-bg: color-mix(in srgb, var(--tl-error) 20%, var(--tl-bg));
-  --tl-warn-bg: color-mix(in srgb, var(--tl-warn) 20%, var(--tl-bg));
-  --tl-info-bg: color-mix(in srgb, var(--tl-info) 20%, var(--tl-bg));
-  --tl-loading-bg: var(--tl-bg);
+  --tl-bg-success: color-mix(in srgb, var(--tl-success) 20%, var(--tl-bg));
+  --tl-bg-error: color-mix(in srgb, var(--tl-error) 20%, var(--tl-bg));
+  --tl-bg-warn: color-mix(in srgb, var(--tl-warn) 20%, var(--tl-bg));
+  --tl-bg-info: color-mix(in srgb, var(--tl-info) 20%, var(--tl-bg));
+  --tl-bg-loading: var(--tl-bg);
 
-  --tl-success-border: color-mix(in srgb, var(--tl-success) 40%, var(--tl-border));
-  --tl-error-border: color-mix(in srgb, var(--tl-error) 40%, var(--tl-border));
-  --tl-warn-border: color-mix(in srgb, var(--tl-warn) 40%, var(--tl-border));
-  --tl-info-border: color-mix(in srgb, var(--tl-info) 40%, var(--tl-border));
+  --tl-border-success: color-mix(in srgb, var(--tl-success) 40%, var(--tl-border));
+  --tl-border-error: color-mix(in srgb, var(--tl-error) 40%, var(--tl-border));
+  --tl-border-warn: color-mix(in srgb, var(--tl-warn) 40%, var(--tl-border));
+  --tl-border-info: color-mix(in srgb, var(--tl-info) 40%, var(--tl-border));
+
+  --tl-text-success: color-mix(in srgb, var(--tl-success) 20%, var(--tl-text));
+  --tl-text-error: color-mix(in srgb, var(--tl-error) 20%, var(--tl-text));
+  --tl-text-warn: color-mix(in srgb, var(--tl-warn) 20%, var(--tl-text));
+  --tl-text-info: color-mix(in srgb, var(--tl-info) 20%, var(--tl-text));
+  --tl-text-loading: var(--tl-text);
 }
 ```
 
