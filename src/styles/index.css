@@ -34,7 +34,7 @@
   min-width: 100px;
   max-width: 1200px;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: var(--toasts-lite-radius);
   cursor: pointer;
   pointer-events: auto;
   text-overflow: ellipsis;
