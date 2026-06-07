@@ -85,6 +85,7 @@ toasts.onToastsListChange(callback) // Subscribe to toast list changes
 | `duration` | `number` | `3000` | Duration in milliseconds |
 | `autoClose` | `boolean` | `true` | Auto-close behavior |
 | `position` | `ToastPosition` | `'top-center'` | Toast position |
+| `closable` | `boolean` | `true` | Show `×` button and allow body click to dismiss |
 | `id` | `string` | auto | Custom ID |
 
 ### Available Positions
@@ -124,6 +125,32 @@ await toasts.promise(
   }
 )
 ```
+
+### Closable & Close Button
+
+The `closable` flag (default `true`) controls **both** the `×` button on the right and click-to-dismiss on the toast body. When `false`, the toast can only be closed by the auto-close timer or programmatically via `toasts.remove(id)`.
+
+```js
+// Default — × button visible, body click closes
+toasts.success('Saved')
+
+// Sticky — no button, no body click, no timer
+toasts.warn('Sticky', { autoClose: false, closable: false })
+
+// No timer but user can still dismiss via × or body click
+toasts.info('Click to dismiss', { autoClose: false, closable: true })
+
+// Auto-close only, no × button
+toasts.success('Timer-only', { closable: false })
+```
+
+To hide the `×` button on **every** toast at once without disabling click-to-dismiss, pass `hide-close-button` to the provider:
+
+```vue
+<ToastsLiteProvider :hide-close-button="true" />
+```
+
+Per-toast `closable: false` always wins — no button, no body click, no dismiss.
 
 ## Styling
 
