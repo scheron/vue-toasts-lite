@@ -178,7 +178,7 @@ You can pass custom classes to `ToastsLiteProvider`:
 :root {
   --tl-font-family: system-ui, -apple-system, sans-serif;
   --tl-font-size: 14px;
-  --tl-radius: 8px;
+  --tl-radius: 20px;
   --tl-bg: hsl(0, 0%, 100%);
   --tl-text: hsl(0, 0%, 20%);
   --tl-border: hsl(0, 0%, 85%);
