@@ -12,7 +12,7 @@ A lightweight toast notifications library for Vue 3.
 - 🚀 Lightweight and easy to use
 - 🎨 Multiple toast types (success, error, loading, warn, info)
 - 📍 Multiple positions (can show in different corners simultaneously)
-- ⚡️ Customizable duration, auto-close, and styling
+- ⚡️ Customizable duration, auto-close, colors, radius, and typography
 - 🎯 TypeScript support
 - 🎯 Promise support
 - 🖱️ Pause on hover
@@ -154,7 +154,7 @@ Per-toast `closable: false` always wins — no button, no body click, no dismiss
 
 ## Styling
 
-Customize colors and appearance with CSS variables or by passing custom classes to `ToastsLiteProvider`:
+Customize colors, radius, and typography with CSS variables or by passing custom classes to `ToastsLiteProvider`:
 
 ### Custom Classes
 

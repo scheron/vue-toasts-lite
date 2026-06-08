@@ -428,7 +428,7 @@ off()`,
     index: "05",
     title: "Styling",
     subtitle: "tokens & classes",
-    blurb: "Customize colors and appearance with CSS variables or by passing custom classes to ToastsLiteProvider.",
+    blurb: "Customize colors, radius, and typography with CSS variables or by passing custom classes to ToastsLiteProvider.",
     width: 340,
   },
   {
